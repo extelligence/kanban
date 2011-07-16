@@ -1,16 +1,43 @@
 <h1>Listing tasks</h1>
 
-<% @tasks.each do |task| %>
-  <div id="<%= task.id %>" class="task">
-    <%= task.content %><br />
-    <%= link_to 'Show', task %>
-    <%= link_to 'Edit', edit_task_path(task) %>
-    <%= link_to 'X', task, :confirm => 'このタスクを削除しますか？', :method => :delete %>
-    <%= draggable_element "#{task.id}", :revert => false %>
-  </div>
-  <br />
-<% end %>
-
+<%= link_to 'New Task', new_task_path %>
 <br />
 
-<%= link_to 'New Task', new_task_path %>
+<table id="board" class="board">
+  <tr>
+
+    <td id="todo" class="todo">
+      <table>
+        <tr><td>
+            Todo
+        </td></tr>
+      </table>
+      <div id="todoCaption" class="boardCaption">
+        <%= render :partial => 'task', :collection => @toDoTasks %>
+      </div>
+    </td>
+
+    <td id="doing" class="doing">
+      <table>
+        <tr><td>
+            Doing
+        </td></tr>
+      </table>
+      <div id="doingCaption" class="boardCaption">
+        <%= render :partial => 'task', :collection => @doingTasks %>
+      </div>
+    </td>
+
+    <td id="done" class="done">
+      <table>
+        <tr><td>
+            Done
+        </td></tr>
+      </table>
+      <div id="doneCaption" class="boardCaption">
+        <%= render :partial => 'task', :collection => @doneTasks %>
+      </div>
+    </td>
+
+  </tr>
+</table>

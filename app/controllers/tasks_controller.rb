@@ -2,7 +2,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.xml
   def index
-    @tasks = Task.all
+    @toDoTasks = Task.find(:all, :conditions => ["status=?", "todo"], :order => "priority desc, updated_at desc")
+    @doingTasks = Task.find(:all, :conditions => ["status=?", "doing"], :order => "updated_at desc")
+    @doneTasks = Task.find(:all, :conditions => ["status=?", "done"], :order => "updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
