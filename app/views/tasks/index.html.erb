@@ -1,28 +1,17 @@
 <h1>Listing tasks</h1>
 
-<table>
-  <tr>
-    <th>Content</th>
-    <th>Status</th>
-    <th>Priority</th>
-    <th>Owner</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.content %></td>
-    <td><%= task.status %></td>
-    <td><%= task.priority %></td>
-    <td><%= task.owner %></td>
-    <td><%= link_to 'Show', task %></td>
-    <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <div id="<%= task.id %>" class="task">
+    <%= task.content %><br />
+    <%#= task.status %>
+    <%#= task.priority %>
+    <%#= task.owner %>
+    <%= link_to 'Show', task %>
+    <%= link_to 'Edit', edit_task_path(task) %>
+    <%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %>
+  </div>
+  <br />
 <% end %>
-</table>
 
 <br />
 
