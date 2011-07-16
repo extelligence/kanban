@@ -3,12 +3,10 @@
 <% @tasks.each do |task| %>
   <div id="<%= task.id %>" class="task">
     <%= task.content %><br />
-    <%#= task.status %>
-    <%#= task.priority %>
-    <%#= task.owner %>
     <%= link_to 'Show', task %>
     <%= link_to 'Edit', edit_task_path(task) %>
-    <%= link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete %>
+    <%= link_to 'X', task, :confirm => 'このタスクを削除しますか？', :method => :delete %>
+    <%= draggable_element "#{task.id}", :revert => false %>
   </div>
   <br />
 <% end %>
