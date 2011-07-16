@@ -16,6 +16,7 @@
         <%= render :partial => 'task', :collection => @toDoTasks %>
       </div>
     </td>
+    <%= drop_receiving_element 'todoCaption', :url => {:action => 'change_status', :status => 'todo'} %>
 
     <td id="doing" class="doing">
       <table>
@@ -27,6 +28,7 @@
         <%= render :partial => 'task', :collection => @doingTasks %>
       </div>
     </td>
+    <%= drop_receiving_element 'doingCaption', :url => {:action => 'change_status', :status => 'doing'} %>
 
     <td id="done" class="done">
       <table>
@@ -38,6 +40,7 @@
         <%= render :partial => 'task', :collection => @doneTasks %>
       </div>
     </td>
+    <%= drop_receiving_element 'doneCaption', :url => {:action => 'change_status', :status => 'done'} %>
 
   </tr>
 </table>

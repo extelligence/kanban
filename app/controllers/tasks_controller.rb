@@ -82,4 +82,14 @@ class TasksController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # ドラッグアンドドロップ時にタスクのステータスを変更する
+  def change_status
+    @task = Task.find(params[:id])
+    if @task.update_attributes(:status => params[:status])
+      render :update do |page|
+        page.visual_effect :highlight, "#{params[:id]}", :duration => 0.6
+      end
+    end
+  end
 end

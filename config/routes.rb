@@ -1,4 +1,5 @@
 Kanban::Application.routes.draw do
+  match 'tasks/change_status' => 'tasks#change_status', :via => 'post'
   resources :tasks
 
   # The priority is based upon order of creation:
