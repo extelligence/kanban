@@ -2,24 +2,13 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.xml
   def index
-    @toDoTasks = Task.find(:all, :conditions => ["status=?", "todo"], :order => "priority desc, updated_at desc")
+    @toDoTasks  = Task.find(:all, :conditions => ["status=?", "todo"],  :order => "priority desc, updated_at desc")
     @doingTasks = Task.find(:all, :conditions => ["status=?", "doing"], :order => "updated_at desc")
-    @doneTasks = Task.find(:all, :conditions => ["status=?", "done"], :order => "updated_at desc")
+    @doneTasks  = Task.find(:all, :conditions => ["status=?", "done"],  :order => "updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tasks }
-    end
-  end
-
-  # GET /tasks/1
-  # GET /tasks/1.xml
-  def show
-    @task = Task.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @task }
     end
   end
 
