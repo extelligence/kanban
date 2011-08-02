@@ -13,7 +13,7 @@
 
 <div id="<%= task.id %>" class="task" style="border:2px solid <%= @color %>">
   <div class="task_priority_bar_<%= task.priority %>">
-    <%= link_to '編集する', edit_task_path(task) %>
+    <%= link_to '編集する', edit_task_path(task), :remote => true %>
     <%= link_to 'X', task, :confirm => 'このタスクを削除しますか？', :method => :delete %>
   </div>
   <div class="owner">

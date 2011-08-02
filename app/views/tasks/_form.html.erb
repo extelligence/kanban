@@ -1,33 +1,20 @@
-<%= form_for(@task) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :priority %><br />
-    <%= f.text_field :priority %>
-  </div>
-  <div class="field">
-    <%= f.label :owner %><br />
-    <%= f.text_field :owner %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%#= error_messages_for 'task' %>
+<div id='task_form_block'>
+  <%= form_tag(url_for(:action => @form_action, :id => @task.id), :remote => true, :id => "task_form") do %>
+    <label for="task_content">なにをしようかな？</label>
+    <br />
+    <%= text_area 'task', 'content', "cols" => 80, "rows" => 3 %>
+    <br />
+    <label for="priority">あとで</label>
+    <span><%= radio_button("task", "priority", "1") %></span>
+    <span><%= radio_button("task", "priority", "2") %></span>
+    <span><%= radio_button("task", "priority", "3") %></span>
+    <label for="priority">すぐに</label>
+    <br />
+    <label for="task_owner">誰が？</label>
+    <%= text_field 'task', 'owner' %>
+    <br />
+    <br />
+    <%= submit_tag @form_button %>
+  <% end -%>
+</div>

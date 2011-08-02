@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.xml
@@ -6,10 +7,9 @@ class TasksController < ApplicationController
     @doingTasks = Task.find(:all, :conditions => ["status=?", "doing"], :order => "updated_at desc")
     @doneTasks  = Task.find(:all, :conditions => ["status=?", "done"],  :order => "updated_at desc")
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tasks }
-    end
+    @form_action = 'add_task'
+    @form_button = 'タスクを追加する'
+    @task = Task.new
   end
 
   # GET /tasks/new
@@ -26,6 +26,23 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+
+    @form_action = 'update'
+    @form_button = 'タスクを編集する'
+
+    #content属性に<br/>が含まれていた場合に"\n"に変換する(textarea表示用)
+    @task.content = @task.content.gsub("<br/>", "\n")
+
+    render :update do |page|
+      #編集対象のタスクにvisual_effectをかける
+      page.visual_effect :highlight, "#{@task.id}", :duration => 0.4
+      #フォームを削除する
+      page[:task_form].remove
+      #フォームを挿入する
+      page.insert_html :top, 'task_form_block', :partial => 'form'
+      #編集対象のタスクにvisual_effectをかける
+      page.visual_effect :highlight, "#{@task.id}", :duration => 0.6
+    end
   end
 
   # POST /tasks
@@ -49,15 +66,37 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-        format.html { redirect_to(@task, :notice => 'Task was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
-      end
+    @task.update_attributes(params[:task])
+    #改行が入力されていた場合に<br/>に変換する
+    @task.content = @task.content.gsub("\n", "<br/>")
+    @task.save
+
+    render :update do |page|
+      #_task.rhtml を書き換える
+      page.replace "#{@task.id}", :partial => 'task', :object => @task
+      #書き換えたタスクにvisual_effectをかける
+      page.visual_effect :highlight, "#{@task.id}", :duration => 0.4
+      #フォームを追加用に戻すため、いったん削除する
+      page[:task_form].remove
+      #フォームのアクションを'add_task'にする
+      @form_action = 'add_task'
+      #ボタン表示文字列を追加用にする
+      @form_button = 'タスクを追加する'
+      @task.content = ""
+      @task.owner = ""
+      #フォームを挿入する
+      page.insert_html :top, 'task_form_block', :partial => 'form'
     end
+
+    #respond_to do |format|
+      #if @task.update_attributes(params[:task])
+        #format.html { redirect_to(@task, :notice => 'Task was successfully updated.') }
+        #format.xml  { head :ok }
+      #else
+        #format.html { render :action => "edit" }
+        #format.xml  { render :xml => @task.errors, :status => :unprocessable_entity }
+      #end
+    #end
   end
 
   # DELETE /tasks/1
@@ -79,6 +118,26 @@ class TasksController < ApplicationController
       render :update do |page|
         page.visual_effect :highlight, "#{params[:id]}", :duration => 0.6
       end
+    end
+  end
+
+  # タスクを追加するメソッド
+  def add_task
+    @task = Task.new(params[:task])
+    @task.status = 'todo'
+    #改行が入力されていた場合に変換する
+    @task.content = @task.content.gsub("\n", "")
+    @task.save
+
+    render :update do |page|
+      #フォームをリセットする
+      page.call 'Form.reset', 'task_form'
+      #要素'todoCaption'の後ろにタスクを:partialで挿入する
+      page.insert_html :top, 'todoCaption', :partial => 'task', :object => @task
+      #タスクのdraggableを維持する
+      page.draggable "#{@task.id}"
+      #追加したタスクにvisual_effectをかける
+      page.visual_effect :highlight,"#{@task.id}",:duration => 1
     end
   end
 end

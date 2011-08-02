@@ -1,4 +1,5 @@
 Kanban::Application.routes.draw do
+  match 'tasks/add_task'      => 'tasks#add_task',      :via => 'post'
   match 'tasks/change_status' => 'tasks#change_status', :via => 'post'
   resources :tasks
 
