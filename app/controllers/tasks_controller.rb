@@ -8,6 +8,7 @@ class TasksController < ApplicationController
     @doneTasks  = Task.find(:all, :conditions => ["status=?", "done"],  :order => "updated_at desc")
 
     @form_action = 'add_task'
+    @form_method = 'POST'
     @form_button = 'タスクを追加する'
     @task = Task.new
   end
@@ -28,6 +29,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     @form_action = 'update'
+    @form_method = 'PUT'
     @form_button = 'タスクを編集する'
 
     #content属性に<br/>が含まれていた場合に"\n"に変換する(textarea表示用)
