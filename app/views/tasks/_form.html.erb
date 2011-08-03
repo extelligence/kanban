@@ -3,7 +3,7 @@
   <%= form_tag(url_for(:action => @form_action, :id => @task.id), :method => @form_method, :remote => true, :id => "task_form") do %>
     <label for="task_content">なにをしようかな？</label>
     <br />
-    <%= text_area 'task', 'content', "cols" => 80, "rows" => 3 %>
+    <%= text_area 'task', 'content', "cols" => 50, "rows" => 2, :class => "textbox" %>
     <br />
     <label for="priority">あとで</label>
     <span><%= radio_button("task", "priority", "1") %></span>
@@ -12,7 +12,7 @@
     <label for="priority">すぐに</label>
     <br />
     <label for="task_owner">誰が？</label>
-    <%= text_field 'task', 'owner' %>
+    <%= text_field 'task', 'owner', :class => "textbox" %>
     <br />
     <br />
     <%= submit_tag @form_button, :class => "button white medium" %>

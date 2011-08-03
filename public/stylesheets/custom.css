@@ -389,3 +389,12 @@ LABEL {
   background: -moz-linear-gradient(top,  #f171ab,  #feb1d3);
   filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f171ab', endColorstr='#feb1d3');
 }
+
+/* form */
+.textbox {
+  border: 1px solid #C1C1C1;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16) inset;
+  font-size: 1em;
+  padding: 2px;
+}
