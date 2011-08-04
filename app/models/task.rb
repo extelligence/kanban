@@ -1,8 +1,8 @@
 class Task < ActiveRecord::Base
   validates :content,  :presence => true
   validates :status,   :presence => true
-  validates :priority, :presence => true
-  validates :owner,    :presence => true
+  #validates :priority, :presence => true
+  #validates :owner,    :presence => true
 end
 
 # == Schema Information

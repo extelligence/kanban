@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
     @form_action = 'add_task'
     @form_method = 'POST'
-    @form_button = 'タスクを追加する'
+    @form_button = '追加する'
     @task = Task.new
   end
 
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
 
     @form_action = 'update'
     @form_method = 'PUT'
-    @form_button = 'タスクを編集する'
+    @form_button = '編集する'
 
     #content属性に<br/>が含まれていた場合に"\n"に変換する(textarea表示用)
     @task.content = @task.content.gsub("<br/>", "\n")
@@ -83,7 +83,7 @@ class TasksController < ApplicationController
       #フォームのアクションを'add_task'にする
       @form_action = 'add_task'
       #ボタン表示文字列を追加用にする
-      @form_button = 'タスクを追加する'
+      @form_button = '追加する'
       @task.content = ""
       @task.owner = ""
       #フォームを挿入する
