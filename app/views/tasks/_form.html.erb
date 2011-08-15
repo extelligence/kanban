@@ -1,20 +1,16 @@
 <%#= error_messages_for 'task' %>
 <div id='task_form_block'>
   <%= form_tag(url_for(:action => @form_action, :id => @task.id), :method => @form_method, :remote => true, :id => "task_form") do %>
-    <label for="task_content">なにをしようかな？</label>
-    <br />
-    <%= text_area 'task', 'content', "cols" => 50, "rows" => 2, :class => "textbox" %>
-    <br />
-    <label for="priority">あとで</label>
-    <span><%= radio_button("task", "priority", "1") %></span>
-    <span><%= radio_button("task", "priority", "2") %></span>
-    <span><%= radio_button("task", "priority", "3") %></span>
+    <%= text_area 'task', 'content', "rows" => 1, :class => "textbox" %>
+    <!-- <label for="priority">あとで</label>
+    <span><%#= radio_button("task", "priority", "1") %></span>
+    <span><%#= radio_button("task", "priority", "2") %></span>
+    <span><%#= radio_button("task", "priority", "3") %></span>
     <label for="priority">すぐに</label>
     <br />
     <label for="task_owner">誰が？</label>
-    <%= text_field 'task', 'owner', :class => "textbox" %>
-    <br />
-    <br />
+    <%#= text_field 'task', 'owner', :class => "textbox" %>
+    -->
     <%= submit_tag @form_button, :class => "button white medium" %>
   <% end -%>
 </div>
