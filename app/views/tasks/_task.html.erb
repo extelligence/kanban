@@ -11,21 +11,11 @@
   end
 %>
 
-<div id="<%= task.id %>" class="task" style="border:2px solid <%= @color %>">
-  <div class="task_priority_bar_<%= task.priority %>">
-    <%= link_to '編集する', edit_task_path(task), :remote => true %>
+<div id="<%= task.id %>" class="task" style="border:1px solid <%= @color %>">
+  <%= task.content %>
+  <span class="right">
+    <%= link_to 'Edit', edit_task_path(task), :remote => true %>
     <%= link_to 'X', task, :confirm => 'このタスクを削除しますか？', :method => :delete %>
-  </div>
-  <div class="owner">
-    <table style="padding:0px; margin:0px;">
-      <tr><td><%= task.owner %></td></tr>
-    </table>
-  </div>
-  <%= task.content %><br /><br />
-  <hr />
-  <span class="datetime">
-    作成<%= task.created_at.strftime("%Y/%m/%d %H:%M") %><br />
-    更新<%= task.updated_at.strftime("%Y/%m/%d %H:%M") %><br />
   </span>
   <%= draggable_element "#{task.id}", :revert => false %>
 </div>
